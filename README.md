@@ -99,3 +99,14 @@ Data should be sorted by **D1** column.
 
 ### Output
 `.tsv` file with unioned data from all input files
+
+### Run
+```
+python main.py -h 
+```
+It will be display a brief description related to the script and its arguments `[F]` files and `--out` output_file
+
+```
+python main.py --out file.tsv test_1.csv test_2.csv
+```
+To execute the script, it will generate a `.tsv` file that will contains the data from the files that we put as arguments. 
