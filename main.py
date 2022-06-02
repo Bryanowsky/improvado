@@ -1,19 +1,20 @@
-from improvado.improvado import Dog, ExtractData, Improvado
+import argparse
+
+from improvado.improvado import Improvado
 
 
 def main():
-    improvado = Improvado()
-    extract_data = ExtractData(improvado=improvado)
-    extract_data.process_files(
-        filenames=[
-            '/Users/bryanowsky/Development/improvado/csv_data_1.csv',
-            '/Users/bryanowsky/Development/improvado/csv_data_2.csv',
-            '/Users/bryanowsky/Development/improvado/json_data.json',
-            'other.yaml',
-            'clown.png.xlsx'
-        ]
+    parser = argparse.ArgumentParser(description="Extract data from some files and export it into a new file")
+    parser.add_argument("files", metavar="F", type=str, nargs="+", help="File(s) whose data will be extracted")
+    parser.add_argument(
+        "--out", dest="output_file", metavar="O", type=str, nargs="?", default="output.tsv",
+        help='File that will store the final data'
     )
-    print(extract_data.improvado.data, extract_data.improvado.height)
+    args = parser.parse_args()
+
+    improvado = Improvado()
+    improvado.extract_data(filenames=args.files)
+    improvado.export_data(filename=args.output_file)
 
 
 if __name__ == "__main__":
